@@ -1,37 +1,37 @@
-import React from "react";
-import PropTypes from "prop-types";
-
-type PropsType = {
-    param?: string
-    tasks: TaskType[]
-}
+import React from 'react';
+import {ButtonNameType} from "./App";
 
 type TaskType = {
     id: number
     title: string
     isDone: boolean
 }
-export const Todolist = (props: PropsType) => {
-    return (
+
+type PropsType = {
+    title: string
+    tasks: Array<TaskType>
+    removeTask:(id:number)=>void
+    filerTasks:(buttonName:ButtonNameType)=>void
+}
+
+export function Todolist(props: PropsType) {
+    return <div>
+        <h3>{props.title}</h3>
         <div>
-            <h3>{props.param}</h3>
-            <div>
-                <input/>
-                <button>+</button>
-            </div>
-            <ul>
-                {props.tasks.map(item => {
-                    return (
-                        <li><input type="checkbox" checked={item.isDone}/> <span>{item.title}</span>
-                        </li>
-                    )
-                })}
-            </ul>
-            <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
-            </div>
+            <input/>
+            <button>+</button>
         </div>
-    )
+        <ul>
+            {props.tasks.map((task)=> {
+                return(
+                    <li key={task.id}><input type="checkbox" checked={task.isDone}/> <span>{task.title}</span><button onClick={()=> props.removeTask(task.id)}>✖️</button></li>
+                    )
+            })}
+        </ul>
+        <div>
+            <button onClick={()=>props.filerTasks('all')}>All</button>
+            <button onClick={()=>props.filerTasks('active')}>Active</button>
+            <button onClick={()=>props.filerTasks('completed')}>Completed</button>
+        </div>
+    </div>
 }

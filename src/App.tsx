@@ -1,25 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from "./Todolist";
+import {Todolist} from './Todolist';
 
+export type ButtonNameType = 'all' | 'active' | 'completed'
 function App() {
-    const param = 'param1';
 
-    const tasks1 = [
-        {id:1, title: "HTML&CSS", isDone: true},
-        {id:2, title: "JS", isDone: true},
-        {id:3, title: "ReactJS", isDone: false},
-    ]
-    const tasks2 = [
-        {id:1, title: "Hello World", isDone: true},
-        {id:2, title: "I am happy", isDone: false},
-        {id:3, title: "Hi", isDone: false},
-    ]
+    let[tasks, setTasks]=useState([
+        { id: 1, title: "HTML&CSS", isDone: true },
+        { id: 2, title: "JS", isDone: true },
+        { id: 3, title: "ReactJS", isDone: false }
+    ])
+
+    let filteredTasksArray = tasks
+    let[filterButtonName, setFilterButtonName] =useState("all")
+    if (filterButtonName === "active") {
+        filteredTasksArray = tasks.filter(task => task.isDone)
+    }
+
+    if (filterButtonName === "completed") {
+        filteredTasksArray = tasks.filter(task => !task.isDone)
+    }
+    const removeTask =(id:number)=> {
+        setTasks(tasks.filter(task => task.id !== id))
+    }
+
+    const filerTasks=(buttonName:ButtonNameType)=> {
+        setFilterButtonName(buttonName)
+    }
 
     return (
         <div className="App">
-           <Todolist tasks={tasks1}/>
-           <Todolist tasks={tasks2}/>
+            <Todolist title="What to learn" tasks={filteredTasksArray} removeTask={removeTask} filerTasks={filerTasks}/>
         </div>
     );
 }
