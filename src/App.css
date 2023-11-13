@@ -1,8 +1,49 @@
 .App {
-  padding: 30px;
-  display: flex;
+    padding: 30px;
+    display: flex;
 }
 
 .App > div {
-  margin-right: 50px;
+    margin-right: 50px;
+}
+
+.task {
+    font-weight: bold;
+}
+
+.taskDone {
+    opacity: 0.7;
+    text-decoration: line-through;
+}
+
+.btn {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.btnFilterActive {
+    background-color: lightseagreen;
+    border: 1px solid darkslategray;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.inline {
+    display: flex;
+    gap: 5px;
+}
+
+.emptyValueError {
+    border: 1px solid red;
+}
+
+.error {
+    border: 2px solid red;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-flow: column;
+    gap:5px;
 }

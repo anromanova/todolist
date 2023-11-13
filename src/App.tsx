@@ -15,6 +15,8 @@ export function App() {
         { id: v1(), title: "GraphQL", isDone: false },
     ]);
 
+    // crypto.randomUUID() - new global object
+
     function removeTask(id: string) {
         let filteredTasks = tasks.filter(t => t.id !== id);
         setTasks(filteredTasks);
@@ -23,6 +25,12 @@ export function App() {
     const addTask=(newTitle : string)=>{
         const newTask = {id: v1(), title: newTitle, isDone: false};
         setTasks([newTask,...tasks])
+    }
+
+    const changeTaskStatus = (id:string) => {
+        const updatedTasks = tasks.map(t=> t.id === id ? {...t, isDone : !t.isDone} : t)
+        setTasks(updatedTasks)
+        // return undefined
     }
 
     let [filter, setFilter] = useState<FilterValuesType>("all");
@@ -47,6 +55,8 @@ export function App() {
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addTask ={addTask}
+                      changeTaskStatus={changeTaskStatus}
+                      filter={filter}
             />
         </div>
     );
